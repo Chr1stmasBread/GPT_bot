@@ -5,7 +5,7 @@ import logging
 
 # Настройка логирования
 logging.basicConfig(filename='token_refresh.log', level=logging.INFO,
-					format='%(asctime)s - %(levelname)s - %(message)s')
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def get_iam_token():
@@ -31,7 +31,7 @@ def check_and_refresh_token():
 
     token_data = get_iam_token()
     if token_data:
-        expires_at = datetime.fromtimestamp(token_data['expires_at'])
+        expires_at = datetime.fromtimestamp(token_data.get('expires_at', 0))  # Проверка наличия ключа
         current_time = datetime.now()
         time_remaining = expires_at - current_time
 
@@ -46,9 +46,10 @@ def check_and_refresh_token():
     # Возвращаем значение переменной iam_token, даже если оно равно None
     return iam_token
 
+
 def refresh_token():
     new_token_data = get_iam_token()
-    if new_token_data:
+    if new_token_data and 'access_token' in new_token_data:  # Проверка наличия ключа 'access_token'
         logging.info("Токен успешно обновлен.")
         return new_token_data['access_token']
     else:
