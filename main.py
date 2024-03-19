@@ -1,27 +1,34 @@
 import requests
 import telebot
+from langdetect import detect  # Импортируем функцию для определения языка
 from TOKEN import *
 
 # Создание экземпляра бота
 bot = telebot.TeleBot(TOKEN)
 
 # Функция для отправки запроса к Yandex GPT
-def generate_text(genre, hero, universe):
+def generate_text(query, lang):
+    # Определяем язык ответа на основе языка запроса
+    if lang == 'ru':
+        model_uri = f"gpt://{folder_id}/yandexgpt-lite"  # Русская модель
+    else:
+        model_uri = f"gpt://{folder_id}/yandexgpt-lite-en"  # Английская модель
+
     headers = {
         'Authorization': f'Bearer {iam_token}',
         'Content-Type': 'application/json'
     }
     data = {
-        "modelUri": f"gpt://{folder_id}/yandexgpt-lite",
+        "modelUri": model_uri,
         "completionOptions": {
             "stream": False,
-            "temperature": 0.6,
+            "temperature": 0.8,
             "maxTokens": "2000"
         },
         "messages": [
             {
                 "role": "user",
-                "text": f"Generate story with genre: {genre}, hero: {hero}, universe: {universe}"
+                "text": query
             }
         ]
     }
@@ -45,16 +52,15 @@ def start(message):
 # Обработчик команды /generate
 @bot.message_handler(commands=['generate'])
 def generate(message):
-    genre = 'Fantasy'  # Пример значения параметра
-    hero = 'Knight'     # Пример значения параметра
-    universe = 'Middle Earth'  # Пример значения параметра
-    text = generate_text(genre, hero, universe)
-    bot.reply_to(message, text)
+    bot.reply_to(message, 'Введите запрос для генерации истории.')
 
-# Обработчик всех остальных сообщений
+# Обработчик текстовых сообщений
 @bot.message_handler(func=lambda message: True)
-def echo_all(message):
-    bot.reply_to(message, message.text)
+def handle_text(message):
+    query = message.text
+    lang = detect(query)  # Определяем язык запроса
+    generated_text = generate_text(query, lang)
+    bot.reply_to(message, generated_text)
 
 # Запуск бота
 bot.polling()
