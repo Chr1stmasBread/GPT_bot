@@ -1,6 +1,0 @@
-2024-03-18 18:35:52,745 - ERROR - Произошла ошибка: HTTPConnectionPool(host='169.254.169.254', port=80): Max retries exceeded with url: /computeMetadata/v1/instance/service-accounts/default/token (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000016492589100>: Failed to establish a new connection: [WinError 10060] Попытка установить соединение была безуспешной, т.к. от другого компьютера за требуемое время не получен нужный отклик, или было разорвано уже установленное соединение из-за неверного отклика уже подключенного компьютера'))
-2024-03-18 20:54:06,612 - ERROR - Не удалось получить IAM токен.
-2024-03-18 20:56:13,534 - ERROR - Не удалось получить IAM токен.
-2024-03-18 20:58:10,993 - ERROR - Не удалось получить IAM токен.
-2024-03-18 21:19:37,645 - ERROR - Не удалось получить IAM токен.
-2024-03-18 21:22:07,981 - ERROR - Не удалось получить IAM токен.
