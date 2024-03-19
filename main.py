@@ -21,7 +21,7 @@ def generate_text(query, lang):
     data = {
         "modelUri": model_uri,
         "completionOptions": {
-            "stream": True,
+            "stream": False,
             "temperature": 0.8,
             "maxTokens": "2000"
         },
