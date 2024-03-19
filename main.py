@@ -1,6 +1,6 @@
+import requests
 import telebot
 from TOKEN import *
-import requests
 
 # Создание экземпляра бота
 bot = telebot.TeleBot(TOKEN)
@@ -8,11 +8,11 @@ bot = telebot.TeleBot(TOKEN)
 # Функция для отправки запроса к Yandex GPT
 def generate_text(genre, hero, universe):
     headers = {
-        'Authorization': f'Bearer {IAM_TOKEN}',
+        'Authorization': f'Bearer {iam_token}',
         'Content-Type': 'application/json'
     }
     data = {
-        "modelUri": f"gpt://{FOLDER_ID}/yandexgpt-lite",
+        "modelUri": f"gpt://{folder_id}/yandexgpt-lite",
         "completionOptions": {
             "stream": False,
             "temperature": 0.6,
