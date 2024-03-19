@@ -8,18 +8,12 @@ bot = telebot.TeleBot(TOKEN)
 
 # Функция для отправки запроса к Yandex GPT
 def generate_text(query, lang):
-    # Определяем язык ответа на основе языка запроса
-    if lang == 'ru':
-        model_uri = f"gpt://{FOLDER_ID}/yandexgpt-lite"  # Русская модель
-    else:
-        model_uri = f"gpt://{FOLDER_ID}/yandexgpt-lite-en"  # Английская модель
-
     headers = {
         'Authorization': f'Bearer {IAM_TOKEN}',
         'Content-Type': 'application/json'
     }
     data = {
-        "modelUri": model_uri,
+        "modelUri": f"gpt://{FOLDER_ID}/yandexgpt/latest",
         "completionOptions": {
             "stream": False,
             "temperature": 0.8,
