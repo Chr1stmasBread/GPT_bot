@@ -4,7 +4,7 @@ from langdetect import detect  # Импортируем функцию для о
 from TOKEN import *
 
 # Создание экземпляра бота
-bot = telebot.TeleBot(TOKEN)
+bot = telebot.TeleBot(TOKEN, skip_pending=True)
 
 # Функция для отправки запроса к Yandex GPT
 def generate_text(query, lang):
